@@ -14,7 +14,7 @@
                 <ul class="nav-menu">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="listings.html">View Listings</a></li>
-                    <li><a href="application.html">Apply Now</a></li>
+                    <li><a href="application.html" class="active">Apply Now</a></li>
                 </ul>
             </div>
         </nav>
@@ -23,194 +23,315 @@
     <main>
         <div class="container">
             <div class="form-container">
-                <h2>Rental Application Form</h2>
-                <p>Please fill out this form completely. A $60 application fee is required.</p>
-
-                <div class="legal-notice">
-                    <h4>Important Legal Information</h4>
-                    <p>This $60 application fee is used exclusively for credit and background check processing. Payment of this fee does not guarantee approval. Fee is non-refundable except as required by local law.</p>
+                <div class="application-header">
+                    <h2>Rental Application Form</h2>
+                    <div class="application-progress">
+                        <div class="progress-step active">1. Application</div>
+                        <div class="progress-step">2. Review</div>
+                        <div class="progress-step">3. Payment</div>
+                        <div class="progress-step">4. Complete</div>
+                    </div>
                 </div>
 
-                <form id="rentalApplication" onsubmit="return validateForm()">
+                <div class="legal-notice">
+                    <h4>📋 Important Information</h4>
+                    <p><strong>$60 Application Fee</strong> - This fee covers credit check, background verification, and administrative processing. Fee is non-refundable once processing begins.</p>
+                </div>
+
+                <form id="rentalApplication">
                     <!-- Property Selection -->
-                    <div class="form-group">
-                        <label for="property">Select Property *</label>
-                        <select id="property" name="property" required>
-                            <option value="">Choose a property...</option>
-                            <option value="123-main-st">123 Main Street, Cityville - $2,500/month</option>
-                            <option value="456-oak-ave">456 Oak Avenue, Townsville - $1,800/month</option>
-                            <option value="789-park-ln">789 Park Lane, Metropolis - $3,200/month</option>
-                        </select>
+                    <div class="form-section">
+                        <h3>🏠 Property Information</h3>
+                        <div class="form-group">
+                            <label for="property">Which property are you applying for? *</label>
+                            <select id="property" name="property" required>
+                                <option value="">Select a property...</option>
+                                <option value="123-main-st">123 Main Street - 3BR, 2BA - $2,500/month</option>
+                                <option value="456-oak-ave">456 Oak Avenue - 2BR, 1BA - $1,800/month</option>
+                                <option value="789-park-ln">789 Park Lane - 4BR, 3BA - $3,200/month</option>
+                                <option value="321-pine-rd">321 Pine Road - 3BR, 2BA - $2,800/month</option>
+                            </select>
+                        </div>
                     </div>
 
                     <!-- Personal Information -->
-                    <h3>Personal Information</h3>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="firstName">First Name *</label>
-                            <input type="text" id="firstName" name="firstName" required>
+                    <div class="form-section">
+                        <h3>👤 Applicant Information</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name *</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name *</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="lastName">Last Name *</label>
-                            <input type="text" id="lastName" name="lastName" required>
-                        </div>
-                    </div>
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="email">Email Address *</label>
-                            <input type="email" id="email" name="email" required>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number *</label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="phone">Phone Number *</label>
-                            <input type="tel" id="phone" name="phone" required>
-                        </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="ssn">Social Security Number (for credit check) *</label>
-                        <input type="text" id="ssn" name="ssn" placeholder="XXX-XX-XXXX" required>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="dob">Date of Birth *</label>
+                                <input type="date" id="dob" name="dob" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="ssn">Social Security Number *</label>
+                                <input type="text" id="ssn" name="ssn" placeholder="XXX-XX-XXXX" required>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Current Address -->
-                    <h3>Current Address</h3>
-                    <div class="form-group">
-                        <label for="currentAddress">Street Address *</label>
-                        <input type="text" id="currentAddress" name="currentAddress" required>
-                    </div>
+                    <div class="form-section">
+                        <h3>🏡 Current Residence</h3>
+                        <div class="form-group">
+                            <label for="currentAddress">Street Address *</label>
+                            <input type="text" id="currentAddress" name="currentAddress" required>
+                        </div>
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="currentCity">City *</label>
-                            <input type="text" id="currentCity" name="currentCity" required>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="currentCity">City *</label>
+                                <input type="text" id="currentCity" name="currentCity" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="currentState">State *</label>
+                                <input type="text" id="currentState" name="currentState" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="currentZip">ZIP Code *</label>
+                                <input type="text" id="currentZip" name="currentZip" required>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="currentState">State *</label>
-                            <input type="text" id="currentState" name="currentState" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="currentZip">ZIP Code *</label>
-                            <input type="text" id="currentZip" name="currentZip" required>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="rentAmount">Current Monthly Rent *</label>
+                                <input type="number" id="rentAmount" name="rentAmount" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="moveInDate">Desired Move-In Date *</label>
+                                <input type="date" id="moveInDate" name="moveInDate" required>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Employment Information -->
-                    <h3>Employment Information</h3>
-                    <div class="form-group">
-                        <label for="employer">Current Employer *</label>
-                        <input type="text" id="employer" name="employer" required>
-                    </div>
-
-                    <div class="form-row">
+                    <div class="form-section">
+                        <h3>💼 Employment & Income</h3>
                         <div class="form-group">
-                            <label for="position">Position *</label>
-                            <input type="text" id="position" name="position" required>
+                            <label for="employer">Current Employer *</label>
+                            <input type="text" id="employer" name="employer" required>
                         </div>
-                        <div class="form-group">
-                            <label for="monthlyIncome">Gross Monthly Income *</label>
-                            <input type="number" id="monthlyIncome" name="monthlyIncome" required>
-                        </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="employerPhone">Employer Phone Number *</label>
-                        <input type="tel" id="employerPhone" name="employerPhone" required>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="position">Job Title *</label>
+                                <input type="text" id="position" name="position" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="employmentYears">Years Employed *</label>
+                                <input type="number" id="employmentYears" name="employmentYears" step="0.1" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="monthlyIncome">Gross Monthly Income *</label>
+                                <input type="number" id="monthlyIncome" name="monthlyIncome" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="employerPhone">Work Phone *</label>
+                                <input type="tel" id="employerPhone" name="employerPhone" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="incomeSource">Primary Income Source *</label>
+                            <select id="incomeSource" name="incomeSource" required>
+                                <option value="">Select source...</option>
+                                <option value="employment">Employment</option>
+                                <option value="self-employed">Self-Employed</option>
+                                <option value="social-security">Social Security</option>
+                                <option value="disability">Disability</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
                     </div>
 
                     <!-- Rental History -->
-                    <h3>Rental History</h3>
-                    <div class="form-group">
-                        <label for="landlordName">Current Landlord Name</label>
-                        <input type="text" id="landlordName" name="landlordName">
-                    </div>
+                    <div class="form-section">
+                        <h3>📝 Rental History</h3>
+                        <div class="form-group">
+                            <label for="landlordName">Current Landlord Name</label>
+                            <input type="text" id="landlordName" name="landlordName">
+                        </div>
 
-                    <div class="form-group">
-                        <label for="landlordPhone">Landlord Phone Number</label>
-                        <input type="tel" id="landlordPhone" name="landlordPhone">
+                        <div class="form-group">
+                            <label for="landlordPhone">Landlord Phone Number</label>
+                            <input type="tel" id="landlordPhone" name="landlordPhone">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reasonForMoving">Reason for Moving *</label>
+                            <textarea id="reasonForMoving" name="reasonForMoving" rows="3" required></textarea>
+                        </div>
                     </div>
 
                     <!-- Emergency Contact -->
-                    <h3>Emergency Contact</h3>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="emergencyName">Full Name *</label>
-                            <input type="text" id="emergencyName" name="emergencyName" required>
+                    <div class="form-section">
+                        <h3>🚨 Emergency Contact</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="emergencyName">Full Name *</label>
+                                <input type="text" id="emergencyName" name="emergencyName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="emergencyPhone">Phone Number *</label>
+                                <input type="tel" id="emergencyPhone" name="emergencyPhone" required>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="emergencyPhone">Phone Number *</label>
-                            <input type="tel" id="emergencyPhone" name="emergencyPhone" required>
-                        </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="emergencyRelationship">Relationship *</label>
-                        <input type="text" id="emergencyRelationship" name="emergencyRelationship" required>
+                        <div class="form-group">
+                            <label for="emergencyRelationship">Relationship *</label>
+                            <input type="text" id="emergencyRelationship" name="emergencyRelationship" required>
+                        </div>
                     </div>
 
                     <!-- Agreements -->
-                    <div class="legal-notice">
-                        <div class="form-group">
-                            <label>
-                                <input type="checkbox" name="creditCheck" required>
-                                I authorize Premium Properties to perform credit and background checks *
-                            </label>
-                        </div>
-                        <div class="form-group">
-                            <label>
-                                <input type="checkbox" name="understandFee" required>
-                                I understand the $60 application fee is non-refundable *
-                            </label>
-                        </div>
-                        <div class="form-group">
-                            <label>
-                                <input type="checkbox" name="agreement" required>
-                                I certify that all information provided is true and complete *
-                            </label>
+                    <div class="form-section">
+                        <h3>✅ Agreements & Authorization</h3>
+                        <div class="legal-notice">
+                            <div class="form-group checkbox-group">
+                                <label>
+                                    <input type="checkbox" name="creditCheck" required>
+                                    <strong>I authorize Premium Properties to perform credit and background checks</strong> *
+                                </label>
+                            </div>
+                            <div class="form-group checkbox-group">
+                                <label>
+                                    <input type="checkbox" name="understandFee" required>
+                                    <strong>I understand the $60 application fee is non-refundable</strong> *
+                                </label>
+                            </div>
+                            <div class="form-group checkbox-group">
+                                <label>
+                                    <input type="checkbox" name="accurateInfo" required>
+                                    <strong>I certify that all information provided is true and complete</strong> *
+                                </label>
+                            </div>
+                            <div class="form-group checkbox-group">
+                                <label>
+                                    <input type="checkbox" name="privacyPolicy" required>
+                                    <strong>I agree to the Privacy Policy and Terms of Service</strong> *
+                                </label>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Payment Section -->
-                    <h3>Payment Information</h3>
-                    <div class="form-group">
-                        <label>Application Fee: $60.00</label>
+                    <div class="form-section payment-section">
+                        <h3>💳 Payment Information - $60.00</h3>
+                        
+                        <div class="payment-methods">
+                            <div class="payment-method active" data-method="card">
+                                💳 Credit/Debit Card
+                            </div>
+                        </div>
+
+                        <div class="payment-details" id="cardDetails">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="cardNumber">Card Number *</label>
+                                    <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="expiry">Expiry Date *</label>
+                                    <input type="text" id="expiry" name="expiry" placeholder="MM/YY" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="cvv">CVV *</label>
+                                    <input type="text" id="cvv" name="cvv" placeholder="123" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cardName">Name on Card *</label>
+                                    <input type="text" id="cardName" name="cardName" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="billingZip">Billing ZIP Code *</label>
+                                    <input type="text" id="billingZip" name="billingZip" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="payment-summary">
+                            <div class="summary-item">
+                                <span>Application Fee:</span>
+                                <span>$60.00</span>
+                            </div>
+                            <div class="summary-total">
+                                <span>Total Due:</span>
+                                <span>$60.00</span>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="cardNumber">Credit Card Number *</label>
-                            <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="expiry">Expiry Date *</label>
-                            <input type="text" id="expiry" name="expiry" placeholder="MM/YY" required>
-                        </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="window.location.href='listings.html'">
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-success" id="submitBtn">
+                            Submit Application & Pay $60.00
+                        </button>
                     </div>
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="cvv">CVV *</label>
-                            <input type="text" id="cvv" name="cvv" placeholder="123" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="cardName">Name on Card *</label>
-                            <input type="text" id="cardName" name="cardName" required>
-                        </div>
+                    <div class="security-notice">
+                        <p>🔒 Your information is secure. All data is encrypted and transmitted safely.</p>
                     </div>
-
-                    <button type="submit" class="btn btn-success" style="width: 100%; padding: 15px;">
-                        Submit Application & Pay $60.00
-                    </button>
                 </form>
             </div>
         </div>
     </main>
 
+    <!-- Loading Modal -->
+    <div id="loadingModal" class="modal">
+        <div class="modal-content">
+            <div class="loading-spinner"></div>
+            <h3>Processing Your Application</h3>
+            <p>Please wait while we submit your application and process payment...</p>
+            <div class="processing-steps">
+                <div class="step">✓ Validating information</div>
+                <div class="step">✓ Processing $60.00 payment</div>
+                <div class="step">✓ Submitting application</div>
+                <div class="step">✓ Sending confirmation</div>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <div class="container">
             <p>&copy; 2024 Premium Properties. All rights reserved.</p>
+            <p><strong>Application Fee:</strong> $60.00 - Non-refundable processing fee for credit and background checks.</p>
         </div>
     </footer>
 
+    <script src="js/payment.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html>
