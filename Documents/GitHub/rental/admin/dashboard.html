@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Premium Properties</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .admin-container {
+            margin: 100px auto 50px;
+            max-width: 1200px;
+            padding: 20px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .applications-table {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        th {
+            background: #f8f9fa;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <h1 class="logo">Premium Properties - Admin</h1>
+                <ul class="nav-menu">
+                    <li><a href="../index.html">View Site</a></li>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="admin-container">
+            <h2>Application Dashboard</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalApplications">0</div>
+                    <div>Total Applications</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="pendingApplications">0</div>
+                    <div>Pending Review</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">$<span id="totalRevenue">0</span></div>
+                    <div>Total Fees Collected</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="approvedApplications">0</div>
+                    <div>Approved</div>
+                </div>
+            </div>
+
+            <div class="applications-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Property</th>
+                            <th>Applied Date</th>
+                            <th>Status</th>
+                            <th>Fee Paid</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="applicationsTable">
+                        <!-- Applications will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Demo data - in real application, this would come from a backend
+        const applications = JSON.parse(localStorage.getItem('rentalApplications') || '[]');
+        
+        // Add demo application if none exist
+        if (applications.length === 0) {
+            applications.push({
+                id: 1,
+                firstName: 'John',
+                lastName: 'Doe',
+                property: '123 Main Street',
+                appliedDate: new Date().toISOString().split('T')[0],
+                status: 'pending',
+                feePaid: 60,
+                email: 'john.doe@email.com',
+                phone: '(555) 123-4567'
+            });
+        }
+
+        function updateDashboard() {
+            // Update stats
+            document.getElementById('totalApplications').textContent = applications.length;
+            document.getElementById('pendingApplications').textContent = 
+                applications.filter(app => app.status === 'pending').length;
+            document.getElementById('approvedApplications').textContent = 
+                applications.filter(app => app.status === 'approved').length;
+            document.getElementById('totalRevenue').textContent = 
+                applications.reduce((sum, app) => sum + app.feePaid, 0);
+
+            // Update table
+            const tableBody = document.getElementById('applicationsTable');
+            tableBody.innerHTML = applications.map(app => `
+                <tr>
+                    <td>${app.firstName} ${app.lastName}</td>
+                    <td>${app.property}</td>
+                    <td>${app.appliedDate}</td>
+                    <td>
+                        <select onchange="updateStatus(${app.id}, this.value)">
+                            <option value="pending" ${app.status === 'pending' ? 'selected' : ''}>Pending</option>
+                            <option value="approved" ${app.status === 'approved' ? 'selected' : ''}>Approved</option>
+                            <option value="rejected" ${app.status === 'rejected' ? 'selected' : ''}>Rejected</option>
+                        </select>
+                    </td>
+                    <td>$${app.feePaid}</td>
+                    <td>
+                        <button onclick="viewApplication(${app.id})" class="btn btn-primary">View</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function updateStatus(appId, newStatus) {
+            const app = applications.find(a => a.id === appId);
+            if (app) {
+                app.status = newStatus;
+                localStorage.setItem('rentalApplications', JSON.stringify(applications));
+                updateDashboard();
+            }
+        }
+
+        function viewApplication(appId) {
+            const app = applications.find(a => a.id === appId);
+            if (app) {
+                alert(`Application Details:\nName: ${app.firstName} ${app.lastName}\nProperty: ${app.property}\nEmail: ${app.email}\nPhone: ${app.phone}\nStatus: ${app.status}`);
+            }
+        }
+
+        // Check for new application from form submission
+        const lastApplication = localStorage.getItem('lastApplication');
+        if (lastApplication) {
+            const newApp = JSON.parse(lastApplication);
+            applications.push({
+                id: applications.length + 1,
+                firstName: newApp.firstName,
+                lastName: newApp.lastName,
+                property: newApp.property,
+                appliedDate: new Date().toISOString().split('T')[0],
+                status: 'pending',
+                feePaid: 60,
+                email: newApp.email,
+                phone: newApp.phone
+            });
+            localStorage.setItem('rentalApplications', JSON.stringify(applications));
+            localStorage.removeItem('lastApplication');
+        }
+
+        updateDashboard();
+    </script>
+</body>
+</html>
