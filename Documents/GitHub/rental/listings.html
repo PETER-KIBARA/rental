@@ -13,7 +13,7 @@
                 <h1 class="logo">Premium Properties</h1>
                 <ul class="nav-menu">
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="listings.html">View Listings</a></li>
+                    <li><a href="listings.html" class="active">View Listings</a></li>
                     <li><a href="application.html">Apply Now</a></li>
                 </ul>
             </div>
@@ -25,49 +25,97 @@
             <div class="listings-grid">
                 <!-- Listing 1 -->
                 <div class="listing-card">
-                    <div class="listing-image">Property Image</div>
+                    <div class="listing-image">
+                        <div style="text-align: center; color: white;">
+                            <div style="font-size: 3rem;">🏠</div>
+                            <div>123 Main Street</div>
+                        </div>
+                    </div>
                     <div class="listing-content">
                         <div class="listing-price">$2,500/month</div>
-                        <div class="listing-address">123 Main Street, Cityville</div>
+                        <div class="listing-address">123 Main Street, Cityville, CA 90210</div>
                         <ul class="listing-features">
                             <li>3 Bedrooms, 2 Bathrooms</li>
                             <li>1,200 sq ft</li>
-                            <li>Pets Allowed</li>
+                            <li>Pets Allowed (Restrictions Apply)</li>
                             <li>Laundry In Unit</li>
+                            <li>Central AC & Heating</li>
+                            <li>Updated Kitchen</li>
                         </ul>
-                        <a href="application.html?property=123-main-st" class="btn btn-primary">Apply for this Property</a>
+                        <p style="margin-bottom: 1.5rem; color: #666;">Beautiful single-family home with updated kitchen and bathrooms. Quiet neighborhood with excellent schools.</p>
+                        <a href="application.html?property=123-main-st" class="btn btn-primary" style="width: 100%; text-align: center;">Apply for this Property</a>
                     </div>
                 </div>
 
                 <!-- Listing 2 -->
                 <div class="listing-card">
-                    <div class="listing-image">Property Image</div>
+                    <div class="listing-image">
+                        <div style="text-align: center; color: white;">
+                            <div style="font-size: 3rem;">🏢</div>
+                            <div>456 Oak Avenue</div>
+                        </div>
+                    </div>
                     <div class="listing-content">
                         <div class="listing-price">$1,800/month</div>
-                        <div class="listing-address">456 Oak Avenue, Townsville</div>
+                        <div class="listing-address">456 Oak Avenue, Townsville, CA 90211</div>
                         <ul class="listing-features">
                             <li>2 Bedrooms, 1 Bathroom</li>
                             <li>950 sq ft</li>
-                            <li>No Pets</li>
+                            <li>No Pets Allowed</li>
                             <li>Street Parking</li>
+                            <li>Window AC Units</li>
+                            <li>Recently Renovated</li>
                         </ul>
-                        <a href="application.html?property=456-oak-ave" class="btn btn-primary">Apply for this Property</a>
+                        <p style="margin-bottom: 1.5rem; color: #666;">Cozy apartment in a well-maintained building. Close to shopping centers and public transportation.</p>
+                        <a href="application.html?property=456-oak-ave" class="btn btn-primary" style="width: 100%; text-align: center;">Apply for this Property</a>
                     </div>
                 </div>
 
                 <!-- Listing 3 -->
                 <div class="listing-card">
-                    <div class="listing-image">Property Image</div>
+                    <div class="listing-image">
+                        <div style="text-align: center; color: white;">
+                            <div style="font-size: 3rem;">💎</div>
+                            <div>789 Park Lane</div>
+                        </div>
+                    </div>
                     <div class="listing-content">
                         <div class="listing-price">$3,200/month</div>
-                        <div class="listing-address">789 Park Lane, Metropolis</div>
+                        <div class="listing-address">789 Park Lane, Metropolis, CA 90212</div>
                         <ul class="listing-features">
                             <li>4 Bedrooms, 3 Bathrooms</li>
                             <li>2,000 sq ft</li>
                             <li>Pets Allowed</li>
-                            <li>Garage Parking</li>
+                            <li>2-Car Garage</li>
+                            <li>Central AC & Heating</li>
+                            <li>Large Backyard</li>
                         </ul>
-                        <a href="application.html?property=789-park-ln" class="btn btn-primary">Apply for this Property</a>
+                        <p style="margin-bottom: 1.5rem; color: #666;">Spacious family home with modern amenities. Perfect for growing families with plenty of living space.</p>
+                        <a href="application.html?property=789-park-ln" class="btn btn-primary" style="width: 100%; text-align: center;">Apply for this Property</a>
+                    </div>
+                </div>
+
+                <!-- Listing 4 -->
+                <div class="listing-card">
+                    <div class="listing-image">
+                        <div style="text-align: center; color: white;">
+                            <div style="font-size: 3rem;">🌳</div>
+                            <div>321 Pine Road</div>
+                        </div>
+                    </div>
+                    <div class="listing-content">
+                        <div class="listing-price">$2,800/month</div>
+                        <div class="listing-address">321 Pine Road, Greenwood, CA 90213</div>
+                        <ul class="listing-features">
+                            <li>3 Bedrooms, 2 Bathrooms</li>
+                            <li>1,500 sq ft</li>
+                            <li>Small Pets Allowed</li>
+                            <li>Private Patio</li>
+                            <li>Updated Throughout</li>
+                            <li>Quiet Cul-de-sac</li>
+                        </ul>
+                        <p style="margin-bottom: 1.5rem; color: #666;">Modern townhouse with open floor plan. Features stainless steel appliances and hardwood floors.</p>
+                        <a href="application.html?property=321-pine-rd" class="btn btn-primary" style="width: 100%; text-align: center;">Apply for this Property</a>
                     </div>
                 </div>
             </div>
@@ -77,10 +125,10 @@
     <footer>
         <div class="container">
             <p>&copy; 2024 Premium Properties. All rights reserved.</p>
-            <p><strong>Legal Notice:</strong> Application fee is non-refundable and covers processing costs. Approval not guaranteed.</p>
+            <p><strong>Application Fee:</strong> $60.00 - Non-refundable processing fee for credit and background checks.</p>
         </div>
     </footer>
 
-    <script src="js/script.js"></script>
+    <script type="module" src="js/script.js"></script>
 </body>
 </html>

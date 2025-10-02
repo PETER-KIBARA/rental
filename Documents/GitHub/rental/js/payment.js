@@ -43,11 +43,23 @@ class PaymentProcessor {
 
         // SSN formatting
         const ssnInput = document.getElementById('ssn');
-        if (ssnInput) {
-            ssnInput.addEventListener('input', (e) => {
-                this.formatSSN(e.target);
-            });
-        }
+
+if (ssnInput) {
+    ssnInput.addEventListener('input', (e) => {
+        const raw = e.target.value.replace(/\D/g, ''); // Remove non-digit characters
+
+        // Limit to 9 digits max
+        if (raw.length > 9) return;
+
+        let formatted = '';
+        if (raw.length > 0) formatted += raw.slice(0, 3);
+        if (raw.length >= 4) formatted += '-' + raw.slice(3, 5);
+        if (raw.length >= 6) formatted += '-' + raw.slice(5, 9);
+
+        e.target.value = formatted;
+    });
+}
+
 
         // Card number formatting
         const cardNumber = document.getElementById('cardNumber');
@@ -219,23 +231,25 @@ class PaymentProcessor {
                 email: applicationData.email
             });
 
-            const response = await fetch('/api/application', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(applicationData)
-            });
+            // Import Firebase functions
+            const { db } = await import('../firebase-config.js');
+            const { collection, addDoc } = await import('firebase/firestore');
 
-            const result = await response.json();
+            // Add metadata to application data
+            const application = {
+                ...applicationData,
+                timestamp: new Date().toISOString(),
+                status: 'pending',
+                feePaid: true,
+                paymentDate: new Date().toISOString()
+            };
 
-            if (result.success) {
-                console.log('✅ Application submitted successfully');
-                // Redirect to success page
-                window.location.href = 'success.html';
-            } else {
-                throw new Error(result.message || 'Failed to submit application');
-            }
+            // Save to Firestore
+            const docRef = await addDoc(collection(db, 'applications'), application);
+
+            console.log('✅ Application submitted successfully');
+            // Redirect to success page with application ID
+            window.location.href = `success.html?id=${docRef.id}`;
 
         } catch (error) {
             console.error('❌ Error submitting application:', error);

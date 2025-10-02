@@ -1,6 +1,15 @@
 // Main application functionality
 document.addEventListener('DOMContentLoaded', function() {
     initializeApplication();
+
+    // Attach form submission handler
+    const appForm = document.getElementById('rentalApplication');
+    if (appForm) {
+        appForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            await submitApplication(new FormData(appForm));
+        });
+    }
 });
 
 function initializeApplication() {
@@ -27,7 +36,75 @@ function initializeApplication() {
     }
 }
 
-// Utility functions
+// ===== FIREBASE INTEGRATION =====
+import { db } from '../firebase-config.js';
+import { collection, addDoc, getDocs, doc, updateDoc, query, orderBy, limit } from 'firebase/firestore';
+
+async function submitApplication(formData) {
+    try {
+        // Convert FormData → plain object
+        const data = {};
+        formData.forEach((value, key) => {
+            data[key] = value;
+        });
+
+        // Add metadata
+        const application = {
+            ...data,
+            timestamp: new Date().toISOString(),
+            status: 'pending',
+            feePaid: true,
+            paymentDate: new Date().toISOString()
+        };
+
+        // Save to Firestore
+        const docRef = await addDoc(collection(db, 'applications'), application);
+
+        console.log('✅ New application saved:', {
+            id: docRef.id,
+            name: `${application.firstName} ${application.lastName}`,
+            property: application.property,
+            email: application.email
+        });
+
+        showNotification('Application submitted successfully ✅', 'success');
+        // Redirect to success page with ID
+        window.location.href = `success.html?id=${docRef.id}`;
+    } catch (error) {
+        console.error('Error submitting application:', error);
+        showNotification('Error submitting application ❌', 'error');
+    }
+}
+
+async function fetchApplications() {
+    try {
+        const q = query(collection(db, 'applications'), orderBy('timestamp', 'desc'));
+        const querySnapshot = await getDocs(q);
+        const applications = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        console.log('Applications:', applications);
+        return applications;
+    } catch (error) {
+        console.error('Error fetching applications:', error);
+        showNotification('Error loading applications ❌', 'error');
+    }
+}
+
+async function updateApplicationStatus(applicationId, status) {
+    try {
+        const appRef = doc(db, 'applications', applicationId);
+        await updateDoc(appRef, {
+            status: status,
+            updatedAt: new Date().toISOString()
+        });
+        console.log('✅ Application status updated:', applicationId, status);
+        return true;
+    } catch (error) {
+        console.error('Error updating application:', error);
+        return false;
+    }
+}
+
+// ===== UTILITIES =====
 function formatCurrency(amount) {
     return new Intl.NumberFormat('en-US', {
         style: 'currency',
